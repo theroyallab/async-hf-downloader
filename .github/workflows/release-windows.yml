@@ -1,0 +1,26 @@
+name: Upload Windows release binaries
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Deps
+        run: |
+          pip install .[pyinstaller]
+      - name: Build Executable
+        run: |
+          pyinstaller --onefile async-hf-downloader/download.py -n async-hf-downloader-win
+      - name: Upload Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: dist/async-hf-downloader-win.exe
