@@ -1,0 +1,35 @@
+name: Upload release binaries
+
+on:
+  workflow_dispatch:
+  release:
+    types:
+      - created
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, windows-2022, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Deps
+        run: |
+          pip install .[pyinstaller]
+      - name: Build Executable
+        run: |
+          pyinstaller --onefile async-hf-downloader/download.py -n async-hf-downloader
+      - name: Upload Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/') && not startsWith(${{ matrix.os }}, 'windows')
+        with:
+          files: async-hf-downloader
+      - name: Upload Windows Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/') && startsWith(${{ matrix.os }}, 'windows')
+        with:
+          files: async-hf-downloader.exe
