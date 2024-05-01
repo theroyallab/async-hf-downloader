@@ -26,7 +26,7 @@ The project can be run in multiple ways:
 
     2. Run `pip install .` in a venv
 
-    3. Run `python -m src.download --help`
+    3. Run `python -m async-hf-downloader.download --help`
 
 ## Contributing
 
