@@ -14,12 +14,14 @@ Therefore, this project was born and aims to bring an easier experience for user
 
 The project can be run in multiple ways:
 
-1. Download the exe or binary from [Releases](https://github.com/theroyallab/async-hf-downloader)
-    1. On Windows: `.\async-hf-downloader.exe --help`
+1. Download the exe or binary from [Releases](https://github.com/theroyallab/async-hf-downloader/releases)
+    1. On Windows: `.\async-hf-downloader-win.exe --help`
 
-    2. On other OSes: `./async-hf-downloader --help`
+    2. On Linux: `./async-hf-downloader-linux --help`
 
-2. Download the [python file](https://github.com/theroyallab/async-hf-downloader/blob/main/src/download.py) and run it in your existing project
+    3. On macOS: `./async-hf-downloader-darwin --help`
+
+2. Download the [python file](https://github.com/theroyallab/async-hf-downloader/blob/main/async-hf-downloader/download.py) and run it in your existing project
 
 3. Run as a python package:
     1. Clone the repository
