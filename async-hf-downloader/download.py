@@ -126,8 +126,8 @@ async def entrypoint(args):
     print(f"Saving to {str(download_path)}")
 
     try:
-        timeout = aiohttp.ClientTimeout(total=None) # Turn off timeout
-        async with aiohttp.ClientSession(timeout=timeout) as session:
+        client_timeout = aiohttp.ClientTimeout(total=args.timeout) # Turn off timeout
+        async with aiohttp.ClientSession(timeout=client_timeout) as session:
             tasks = []
             print(f"Starting download for {args.repo_id}")
 
@@ -194,7 +194,8 @@ if __name__ == "__main__":
             "Skips all sanity checks such as "
             "checking if the destination directory exists"
         ),
-    )
+    ),
+    parser.add_argument("--timeout", type=int, help="Optional request timeout in seconds")
 
     args = parser.parse_args()
 
