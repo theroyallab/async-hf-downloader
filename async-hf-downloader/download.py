@@ -6,7 +6,7 @@ This piece of software should be credited whenever it's used anywhere else.
 
 Requirements: huggingface_hub, aiohttp, aiofiles, rich
 
-Version: 0.0.4
+Version: 0.0.5
 """
 
 import asyncio
@@ -126,7 +126,8 @@ async def entrypoint(args):
     print(f"Saving to {str(download_path)}")
 
     try:
-        async with aiohttp.ClientSession() as session:
+        timeout = aiohttp.ClientTimeout(total=None) # Turn off timeout
+        async with aiohttp.ClientSession(timeout=timeout) as session:
             tasks = []
             print(f"Starting download for {args.repo_id}")
 
